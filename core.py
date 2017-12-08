@@ -19,13 +19,15 @@ for c in c_dict:
 	r_dict = json.loads(r.text)
 	c_dict[c] = r_dict[0]
 
+bitbar_format = "font=Menlo size=10"
+
 # display the results
 # in menu bar
-print("$%s" % c_dict['bitcoin']["price_usd"])
+print("$%s | %s" % (format(float(c_dict['bitcoin']["price_usd"]), '.2f'), bitbar_format))
 
 # in submenu
 print("---")
-print("currency price 1h/24h delta")
+print("currency price 1h/24h delta | %s" % bitbar_format)
 for c in c_dict:
 	url = "href=https://coinmarketcap.com/currencies/%s/" % c
 	price = format(float(c_dict[c]["price_usd"]), '.2f')
@@ -38,4 +40,5 @@ for c in c_dict:
 		day_delta = "%s%%" % round(float(c_dict[c]["percent_change_24h"]), 1)
 	else:
 		day_delta = "+%s%%" % round(float(c_dict[c]["percent_change_24h"]), 1)
-	print("%s $%s %s/%s | %s" % (c_dict[c]["symbol"], price, hour_delta, day_delta, url))
+	print("%s $%s %s/%s | %s %s" % (c_dict[c]["symbol"], price, hour_delta, day_delta, url, bitbar_format))
+	
